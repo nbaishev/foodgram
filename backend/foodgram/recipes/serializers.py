@@ -1,5 +1,6 @@
+from typing import Set
+
 from django.db.models import F
-from django.shortcuts import get_object_or_404
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
@@ -7,7 +8,7 @@ from rest_framework.fields import SerializerMethodField
 from rest_framework.relations import PrimaryKeyRelatedField
 
 from recipes.models import Recipe
-from ingredients.models import Ingredient, IngredientAmount
+from ingredients.models import IngredientAmount
 from ingredients.serializers import IngredientAmountSerializer
 from tags.models import Tag
 from tags.serializers import TagSerializer
@@ -85,14 +86,14 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         ingredients = data['ingredients']
-        ingredients_set = set()
+        ingredients_ids: Set[int] = set()
         for ingredient in ingredients:
-            ingredient_id = get_object_or_404(Ingredient, id=ingredient['id'])
-            if ingredient_id in ingredients_set:
+            ingredient_id = ingredient['id']
+            if ingredient_id in ingredients_ids:
                 raise serializers.ValidationError({
                     'Ингредиенты не должны повторяться!'
                 })
-            ingredients_set.add(ingredient_id)
+            ingredients_ids.add(ingredient_id)
             amount = ingredient['amount']
             if int(amount) <= 0:
                 raise serializers.ValidationError({

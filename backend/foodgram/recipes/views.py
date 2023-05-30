@@ -78,7 +78,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         ).values(
             'ingredient'
         ).annotate(
-            amount=Sum('amount')
+            amount_sum=Sum('amount')
         )
 
         shopping_list_text = 'Список покупок:\n\n'

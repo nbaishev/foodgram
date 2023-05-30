@@ -1,5 +1,6 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.db.models import UniqueConstraint
 
 from recipes.models import Recipe
 
@@ -53,6 +54,12 @@ class IngredientAmount(models.Model):
     class Meta:
         verbose_name = 'Ингредиент рецепта'
         verbose_name_plural = 'Ингредиенты рецептов'
+        constraints = (
+            UniqueConstraint(
+                fields=('recipe', 'ingredient',),
+                name='unique_ingredient',
+            ),
+        )
 
     def __str__(self):
         return f'{self.ingredient} {self.amount}'
