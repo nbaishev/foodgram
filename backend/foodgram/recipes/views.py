@@ -84,9 +84,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
         shopping_list_text = 'Список покупок:\n\n'
         for item in shopping_list:
             ingredient = Ingredient.objects.get(pk=item['ingredient'])
-            amount = item['amount']
+            amount_sum = item['amount_sum']
             shopping_list_text += (
-                f'{ingredient.name}, {amount} '
+                f'{ingredient.name}, {amount_sum} '
                 f'{ingredient.measurement_unit}\n'
             )
 
