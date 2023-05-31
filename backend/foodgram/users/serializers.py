@@ -17,7 +17,7 @@ class CustomUserCreateSerializer(UserCreateSerializer):
 
     def validate_username(self, value):
         return validate_username(value)
-    
+
     def create(self, validated_data):
         user = User.objects.create(
             email=validated_data['email'],
