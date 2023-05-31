@@ -1,4 +1,5 @@
 from djoser.serializers import UserCreateSerializer, UserSerializer
+from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 
 from users.models import User
@@ -40,3 +41,8 @@ class CustomUserSerializer(UserSerializer):
         if user.is_anonymous:
             return False
         return user.subscriber.filter(author=obj).exists()
+
+
+class PasswordSerializer(serializers.Serializer):
+    new_password = serializers.CharField(max_length=150)
+    current_password = serializers.CharField(max_length=150)
