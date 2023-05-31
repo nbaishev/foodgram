@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 from recipes.serializers import SubscribeSerializer
 from users.models import Subscribe, User
-from users.serializers import CustomUserSerializer, PasswordSerializer
+from users.serializers import CustomUserSerializer
 from utils.pagination import CustomPagination
 
 
@@ -16,27 +16,6 @@ class CustomUserViewSet(UserViewSet):
     queryset = User.objects.all()
     serializer_class = CustomUserSerializer
     pagination_class = CustomPagination
-
-    @action(
-        detail=False,
-        methods=['POST'],
-        permission_classes=(IsAuthenticated,)
-    )
-    def set_password(self, request):
-        serializer = PasswordSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        password = serializer.validated_data['current_password']
-        new_password = serializer.validated_data['new_password']
-        username = request.user.username
-        user = get_object_or_404(
-            self.get_queryset(),
-            username=username
-        )
-        if check_password(password, user.password):
-            user.set_password(new_password)
-            user.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
 
     @action(
         detail=True,

@@ -41,8 +41,3 @@ class CustomUserSerializer(UserSerializer):
         if user.is_anonymous:
             return False
         return user.subscriber.filter(author=obj).exists()
-
-
-class PasswordSerializer(serializers.Serializer):
-    new_password = serializers.CharField(max_length=150)
-    current_password = serializers.CharField(max_length=150)
