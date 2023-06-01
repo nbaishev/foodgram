@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 
-from users.models import User
+from users.models import Subscribe, User
 
 
 @admin.register(User)
@@ -33,3 +33,8 @@ class UserAdmin(DjangoUserAdmin):
     list_filter = ('email',)
     search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email',)
+
+
+@admin.register(Subscribe)
+class SubscribeAdmin(admin.ModelAdmin):
+    list_display = ('user', 'author',)
