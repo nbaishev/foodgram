@@ -7,7 +7,7 @@ app_name = 'ingredients'
 
 
 router = DefaultRouter()
-router.register('ingredients', IngredientViewSet, basename='ingredient')
+router.register('ingredients', IngredientViewSet, basename='ingredients')
 
 urlpatterns = [
     path('', include(router.urls))

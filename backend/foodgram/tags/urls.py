@@ -7,7 +7,7 @@ app_name = 'tags'
 
 
 router = DefaultRouter()
-router.register('tags', TagViewSet, basename='tag')
+router.register('tags', TagViewSet, basename='tags')
 
 urlpatterns = [
     path('', include(router.urls))
