@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from rest_framework.fields import IntegerField
 
 from ingredients.models import IngredientAmount, Ingredient
 
@@ -15,7 +14,9 @@ class IngredientSerializer(serializers.ModelSerializer):
 class IngredientAmountSerializer(serializers.ModelSerializer):
     """Сериализатор для модели IngredientAmount."""
 
-    id = IntegerField(write_only=True)
+    id = serializers.PrimaryKeyRelatedField(
+        queryset=Ingredient.objects.all()
+    )
 
     class Meta:
         model = IngredientAmount
