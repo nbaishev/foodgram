@@ -48,10 +48,3 @@ POSTGRES_PASSWORD=postgres # пароль для подключения к БД 
 DB_HOST=db # название сервиса (контейнера)
 DB_PORT=5432 # порт для подключения к БД
 ```
-
-
-http://51.250.73.243/
-
-email: admin@admin.ru
-
-pwd:admin
